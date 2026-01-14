@@ -29,7 +29,7 @@ export const useTasks = () => {
     try {
       const result = await taskService.createTask(taskData);
       if (result.success && result.data) {
-        setTasks(prev => [...prev, result.data]);
+        setTasks(prev => [...prev, result.data as Task]);
         return { success: true };
       } else {
         return { success: false, error: result.error };
