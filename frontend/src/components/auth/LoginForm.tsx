@@ -18,7 +18,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 interface LoginFormProps {
   onSubmit: (data: LoginFormData) => void;
   loading?: boolean;
-  error?: string;
+  error?: string | null;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit, loading, error }) => {

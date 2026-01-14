@@ -1,21 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Task } from '../../types';
 
-const taskSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(100, 'Title must be less than 100 characters'),
-  description: z.string().optional(),
-});
-
-type TaskFormData = z.infer<typeof taskSchema>;
-
 interface EditTaskFormProps {
   task: Task;
-  onSubmit: (data: TaskFormData) => void;
+  onSubmit: (data: Partial<Task>) => void;
   onCancel: () => void;
 }
 
@@ -24,8 +15,7 @@ export const EditTaskForm: React.FC<EditTaskFormProps> = ({ task, onSubmit, onCa
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TaskFormData>({
-    resolver: zodResolver(taskSchema),
+  } = useForm<Partial<Task>>({
     defaultValues: {
       title: task.title,
       description: task.description,

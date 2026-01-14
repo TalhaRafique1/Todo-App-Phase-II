@@ -7,6 +7,7 @@ import { TaskList } from '../../components/tasks/TaskList';
 import { CreateTaskForm } from '../../components/tasks/CreateTaskForm';
 import { LoadingSpinner } from '../../components/ui/LoadingSpinner';
 import { Button } from '../../components/ui/Button';
+import { Task } from '../../types';
 
 const DashboardPage = () => {
   const { user, logout } = useAuth();
@@ -22,7 +23,7 @@ const DashboardPage = () => {
 
   const [formLoading, setFormLoading] = useState(false);
 
-  const handleCreateTask = async (data: { title: string; description?: string }) => {
+  const handleCreateTask = async (data: Partial<Task>) => {
     setFormLoading(true);
     try {
       await createTask(data);
@@ -41,7 +42,7 @@ const DashboardPage = () => {
     }
   };
 
-  const handleUpdateTask = async (id: string, data: { title: string; description?: string }) => {
+  const handleUpdateTask = async (id: string, data: Partial<Task>) => {
     await updateTask(id, data);
   };
 

@@ -9,7 +9,7 @@ interface TaskListProps {
   error: string | null;
   onToggleCompletion: (id: string) => void;
   onDelete: (id: string) => void;
-  onUpdate: (id: string, data: Partial<Task>) => void;
+  onUpdate: (id: string, data: Partial<Task>) => Promise<void>;
 }
 
 export const TaskList: React.FC<TaskListProps> = ({
