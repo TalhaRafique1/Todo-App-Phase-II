@@ -45,7 +45,7 @@ const SignupPage = () => {
           </h2>
           <p className="text-gray-600">Create your account and start organizing your tasks.</p>
         </div>
-        <SignupForm onSubmit={handleSignup} loading={loading} error={error} />
+        <SignupForm onSubmit={handleSignup} loading={loading} error={error || undefined} />
         <div className="text-center mt-6 animate-fadeIn">
           <p className="text-sm text-gray-600">
             Already have an account?{' '}
