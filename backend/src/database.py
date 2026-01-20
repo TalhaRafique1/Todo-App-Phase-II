@@ -12,7 +12,7 @@ except ImportError:
     pass  # dotenv is optional
 
 # Import models to register them with SQLModel metadata
-from .models import User, Task  # noqa: F401
+from .models import User, Task, Conversation, Message  # noqa: F401
 
 # Database URL from environment variable
 DATABASE_URL = os.getenv(

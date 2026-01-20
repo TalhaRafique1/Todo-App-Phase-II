@@ -9,7 +9,6 @@ import { Input } from '../ui/Input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/Card';
 
 const signupSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 });
@@ -52,15 +51,6 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, loading, error
           )}
           <div className="space-y-2">
             <Input
-              label="Full Name"
-              type="text"
-              placeholder="John Doe"
-              {...register('name')}
-              error={errors.name?.message}
-            />
-          </div>
-          <div className="space-y-2">
-            <Input
               label="Email"
               type="email"
               placeholder="name@example.com"
@@ -72,7 +62,7 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, loading, error
             <Input
               label="Password"
               type="password"
-              placeholder="Create a password (min. 6 characters)"
+              placeholder="Create a password (min. 8 characters)"
               {...register('password')}
               error={errors.password?.message}
             />
