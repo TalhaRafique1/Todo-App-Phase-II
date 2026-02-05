@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Frontend</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; text-align: center; }
+        button { padding: 10px 20px; margin: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Frontend Container is Running!</h1>
+        <p>This is a simple frontend served by a basic HTTP server.</p>
+        <button onclick="fetchBackend()">Test Backend Connection</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function fetchBackend() {
+            try {
+                const response = await fetch('http://localhost:8000/');
+                const data = await response.json();
+                document.getElementById('result').innerHTML = `<p>Success! Backend responded: ${JSON.stringify(data)}</p>`;
+            } catch (error) {
+                document.getElementById('result').innerHTML = `<p>Error connecting to backend: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

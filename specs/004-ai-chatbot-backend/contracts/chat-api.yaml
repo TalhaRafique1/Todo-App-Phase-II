@@ -1,0 +1,83 @@
+# API Contract: Chat Endpoint
+
+## POST /api/{user_id}/chat
+
+### Description
+Endpoint for AI-powered chat interactions. Accepts natural language messages and returns AI-generated responses with task operations.
+
+### Parameters
+- `user_id` (path, required): UUID - The ID of the user making the request. Must match the authenticated user.
+
+### Request Headers
+- `Authorization` (required): Bearer token - JWT token for authentication
+- `Content-Type` (required): application/json
+
+### Request Body
+```json
+{
+  "conversation_id": "string (optional)",
+  "message": "string (required)"
+}
+```
+
+### Response Codes
+- `200`: Success - Chat response generated
+- `400`: Bad Request - Invalid request format or parameters
+- `401`: Unauthorized - Invalid or missing JWT token
+- `403`: Forbidden - User ID in token doesn't match path parameter
+- `404`: Not Found - Conversation ID provided but not found
+- `500`: Internal Server Error - Unexpected error occurred
+
+### Successful Response (200)
+```json
+{
+  "conversation_id": "string",
+  "response": "string",
+  "tool_calls": [
+    {
+      "name": "string",
+      "arguments": "object",
+      "result": "object"
+    }
+  ]
+}
+```
+
+### Example Request
+```json
+{
+  "conversation_id": "abc123-def456",
+  "message": "Add a task to buy milk"
+}
+```
+
+### Example Response
+```json
+{
+  "conversation_id": "abc123-def456",
+  "response": "I've added a task to buy milk to your list.",
+  "tool_calls": [
+    {
+      "name": "add_task",
+      "arguments": {
+        "title": "buy milk",
+        "description": ""
+      },
+      "result": {
+        "id": "xyz789",
+        "title": "buy milk",
+        "completed": false
+      }
+    }
+  ]
+}
+```
+
+### Security Requirements
+- JWT token must be valid and not expired
+- User ID in JWT token must match the user_id in the path
+- User can only access their own conversations and tasks
+
+### Performance Requirements
+- Response time should be under 5 seconds for typical requests
+- Endpoint should handle natural language processing efficiently

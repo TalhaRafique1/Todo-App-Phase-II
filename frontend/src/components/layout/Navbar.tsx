@@ -43,6 +43,9 @@ export const Navbar = () => {
                 <Link href="/dashboard" className="text-gray-700 hover:text-purple-600 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 hover:bg-purple-50">
                   Dashboard
                 </Link>
+                <Link href="/chat" className="text-gray-700 hover:text-purple-600 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 hover:bg-purple-50">
+                  AI Chat
+                </Link>
                 <span className="text-gray-600 px-3 py-2 rounded-lg text-sm font-medium bg-purple-50">
                   {user?.name || user?.email}
                 </span>
@@ -95,6 +98,9 @@ export const Navbar = () => {
               <>
                 <Link href="/dashboard" className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300">
                   Dashboard
+                </Link>
+                <Link href="/chat" className="text-gray-700 hover:text-purple-600 hover:bg-purple-50 block px-4 py-3 rounded-lg text-base font-semibold transition-all duration-300">
+                  AI Chat
                 </Link>
                 <div className="text-gray-600 block px-4 py-3 rounded-lg text-base font-medium bg-purple-50">
                   Welcome, {user?.name || user?.email}
