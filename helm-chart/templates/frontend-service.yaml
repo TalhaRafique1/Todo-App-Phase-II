@@ -8,7 +8,7 @@ spec:
   type: {{ .Values.frontend.service.type }}
   ports:
     - port: {{ .Values.frontend.service.port }}
-      targetPort: http
+      targetPort: 80  # Changed to target port 80 for nginx
       protocol: TCP
       name: http
   selector:
