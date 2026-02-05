@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    image: backend-app-original
+    container_name: backend-container-original
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./todo_app.db
+    networks:
+      - app-network
+
+  frontend:
+    image: frontend-app-original
+    container_name: frontend-container-original
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_URL=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  # Add volume for database persistence if needed

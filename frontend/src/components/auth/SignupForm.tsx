@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 const signupSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
+  name: z.string().min(1, 'Name is required'),
 });
 
 type SignupFormData = z.infer<typeof signupSchema>;
@@ -49,6 +50,15 @@ export const SignupForm: React.FC<SignupFormProps> = ({ onSubmit, loading, error
               <span>{error}</span>
             </div>
           )}
+          <div className="space-y-2">
+            <Input
+              label="Full Name"
+              type="text"
+              placeholder="Enter your full name"
+              {...register('name')}
+              error={errors.name?.message}
+            />
+          </div>
           <div className="space-y-2">
             <Input
               label="Email"

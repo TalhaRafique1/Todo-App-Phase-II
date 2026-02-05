@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { apiClient } from '../../services/api';
 import { Button } from '../../components/ui/Button';
 import { Input } from '../../components/ui/Input';
+import { useRouter } from 'next/navigation';
 
 interface Message {
   id: string;
@@ -14,7 +15,8 @@ interface Message {
 }
 
 const ChatPage = () => {
-  const { user, loading: authLoading } = useAuth({ redirectTo: '/login' });
+  const router = useRouter();
+  const { user, loading: authLoading } = useAuth();
   const [inputMessage, setInputMessage] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +27,13 @@ const ChatPage = () => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Redirect if user is not authenticated after loading
+  useEffect(() => {
+    if (!authLoading && !user) {
+      router.push('/login');
+    }
+  }, [authLoading, user, router]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -96,7 +105,7 @@ const ChatPage = () => {
   }
 
   if (!user) {
-    return null; // Redirect handled by useAuth hook
+    return null; // Redirect handled by useEffect
   }
 
   return (

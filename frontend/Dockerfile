@@ -1,0 +1,25 @@
+# Use a specific Node.js version that meets Next.js requirements
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install system dependencies that might be needed
+RUN apk add --no-cache libc6-compat python3 make g++
+
+# Copy package files
+COPY package.json package-lock.json* ./
+
+# Install all dependencies (including dev dependencies for building)
+RUN npm ci --legacy-peer-deps
+
+# Copy source code
+COPY . .
+
+# Build the application
+RUN npm run build
+
+# Expose port
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]
